@@ -2,7 +2,11 @@
 
 extension Droplet {
     public func setup() throws {
-        try setupRoutes()
-        // Do any additional droplet setup
+        let builder = Routes(jwtSecret: config["app", "jwtSecret"]!.string!)
+        try builder.build(self)
+        
+        database?.log = { query in
+            print(query.description)
+        }
     }
 }
