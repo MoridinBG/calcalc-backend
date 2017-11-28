@@ -82,8 +82,8 @@ extension User: JSONConvertible {
         
         try self.init(email: json.get("email"),
                       password: json.get("password"),
-                      firstName: json.get("first_name"),
-                      lastName: json.get("last_name"),
+                      firstName: json.get("firstName"),
+                      lastName: json.get("lastName"),
                       role: role)
     }
     
@@ -91,8 +91,8 @@ extension User: JSONConvertible {
         var userJson = JSON()
         try userJson.set("id", id)
         try userJson.set("email", email)
-        try userJson.set("first_name", firstName)
-        try userJson.set("last_name", lastName)
+        try userJson.set("firstName", firstName)
+        try userJson.set("lastName", lastName)
         try userJson.set("role", role.rawValue)
         
         return userJson

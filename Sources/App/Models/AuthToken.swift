@@ -28,13 +28,13 @@ final class AuthToken: Model, Timestampable {
 extension AuthToken: JSONConvertible {
     convenience init(json: JSON) throws {
         try self.init(token: json.get("token"),
-                      userId: json.get("user_id"))
+                      userId: json.get("userId"))
     }
     
     func makeJSON() throws -> JSON {
         var json = JSON()
         try json.set("token", token)
-        try json.set("user_id", userId)
+        try json.set("userId", userId)
         
         return json
     }

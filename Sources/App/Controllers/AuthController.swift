@@ -18,7 +18,7 @@ final class AuthController {
 
         let authToken = AuthToken(token: try jwt.createToken(), userId: Node(id))
         try authToken.save()
-        return JSON(["access_token" : StructuredData.string(try jwt.createToken())])
+        return JSON(["accessToken" : StructuredData.string(try jwt.createToken())])
     }
 }
 
