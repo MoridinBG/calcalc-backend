@@ -108,8 +108,9 @@ final class UsersController: ResourceRepresentable {
         }
 
         user.email = try userJson.get("email")
-        user.firstName = try userJson.get("first_name")
-        user.lastName = try userJson.get("last_name")
+        user.firstName = try userJson.get("firstName")
+        user.lastName = try userJson.get("lastName")
+        user.calorieTarget = try userJson.get("calorieTarget")
         user.role = User.Role(rawValue: role) ?? .user
 
         var hashedPassword: String? = nil
