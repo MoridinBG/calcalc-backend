@@ -21,6 +21,10 @@ final class User: Model, Timestampable, ResponseRepresentable {
     
     let storage = Storage()
     
+    func entries() throws -> [CalorieEntry] {
+        return try children(type: CalorieEntry.self).all()
+    }
+    
     init(email: String, password: String?, firstName: String, lastName: String, calorieTarget: Int?, role: Role) throws {
         guard email.isEmail else {
             throw Abort(.badRequest, reason: "You must provide a valid email address", identifier: ErrorIdentifiers.Validation.User.invalidEmail)

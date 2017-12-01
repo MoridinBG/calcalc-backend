@@ -23,7 +23,11 @@ final class Routes: RouteCollection {
         apiV1.post("users", handler: UsersController().create) // Creating new users does not need authentication
         apiV1Authenticated.post("users", "managed", handler: UsersController().create) // Authenticated user creation for managers/admins
         
+        apiV1Authenticated.post("users", User.parameter, "entries", handler: CalorieEntriesController().create)
         apiV1Authenticated.resource("users", UsersController())
         apiV1Authenticated.get("users", "all", handler: UsersController().getAll)
+        
+        // MARK: CalorieEntries
+        apiV1Authenticated.resource("entries", CalorieEntriesController())
     }
 }

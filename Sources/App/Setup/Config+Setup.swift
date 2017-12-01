@@ -22,7 +22,8 @@ extension Config {
     private func setupPreparations() throws {
         preparations = [
             CreateUser.self,
-            CreateAuthToken.self
+            CreateAuthToken.self,
+            CreateCalorieEntry.self
         ] as [Preparation.Type]
     }
 }

@@ -39,5 +39,3 @@ extension AuthToken: JSONConvertible {
         return json
     }
 }
-
-

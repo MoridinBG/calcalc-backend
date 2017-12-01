@@ -20,6 +20,22 @@ struct ErrorIdentifiers {
         }
     }
     
+    struct CalorieEntry {
+        struct Create {
+            static let missingEntryJson = "CalorieEntry.Create.missingUserJson"
+        }
+        
+        struct Replace {
+            static let notAllowed = "CalorieEntry.Replace.notAllowed"
+            static let missingEntryJson = "CalorieEntry.Replace.missingUserJson"
+            static let newOwnerNotFound = "CalorieEntry.Replace.newOwnerNotFound"
+        }
+        
+        struct Destroy {
+            static let notAllowed = "CalorieEntry.Destroy.notAllowed"
+        }
+    }
+    
     struct Authentication {
         static let tokenExpired = "Authentication.tokenExpired"
         static let tokenInvalid = "Authentication.tokenInvalid"
@@ -32,5 +48,9 @@ struct ErrorIdentifiers {
             static let emailInUse = "Validation.User.emailInUse"
             static let unknownRole = "Validation.User.unknownRole"
         }
+    }
+    
+    struct Database {
+        static let parentNotFound = "Databse.parentNotFound"
     }
 }

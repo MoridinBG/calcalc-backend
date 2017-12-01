@@ -13,5 +13,3 @@ struct CreateAuthToken: Preparation {
         try database.delete(AuthToken.self)
     }
 }
-
-
