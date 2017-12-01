@@ -21,15 +21,24 @@ final class UsersController: ResourceRepresentable {
         do {
             let requestUser = try request.user()
             guard (userJson["role"] != nil && requestUser.role != .user) || (userJson["role"] == nil) else {
-                throw Abort(Status.unauthorized, reason: "Normal users can not have 'role' specified", identifier: ErrorIdentifiers.User.Create.roleNotAllowed)
+                throw Abort(Status.unauthorized, reason: "Normal users can not specify 'role'", identifier: ErrorIdentifiers.User.Create.roleNotAllowed)
+            }
+            
+            if userJson["role"] == "admin" && requestUser.role != .admin {
+                throw Abort(Status.unauthorized, reason: "Only admins can create other admins", identifier: ErrorIdentifiers.User.Create.roleNotAllowed)
             }
             
             if userJson["role"] == nil {
                 userJson["role"] = "user"
             }
         } catch {
+            
+            if let requestUser = try? request.user(), userJson["role"] == "admin" && requestUser.role != .admin {
+                throw Abort(Status.unauthorized, reason: "Only admins can create other admins", identifier: ErrorIdentifiers.User.Create.roleNotAllowed)
+            }
+            
             guard userJson["role"] == nil || userJson["role"] == "user" else {
-                throw Abort(Status.unauthorized, reason: "Normal users can not have 'role' specified", identifier: ErrorIdentifiers.User.Create.roleNotAllowed)
+                throw Abort(Status.unauthorized, reason: "Normal users can not specify 'role'", identifier: ErrorIdentifiers.User.Create.roleNotAllowed)
             }
             
             userJson["role"] = "user"
