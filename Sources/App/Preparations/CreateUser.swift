@@ -9,6 +9,7 @@ struct CreateUser: Preparation {
             builder.string("first_name")
             builder.string("last_name")
             builder.string("role")
+            builder.int("calorie_target", optional: true)
         }
     }
 

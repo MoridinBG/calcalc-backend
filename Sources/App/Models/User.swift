@@ -15,12 +15,13 @@ final class User: Model, Timestampable, ResponseRepresentable {
     var hashedPassword: String?
     var firstName: String
     var lastName: String
+    var calorieTarget: Int?
     
     var role: Role
     
     let storage = Storage()
     
-    init(email: String, password: String?, firstName: String, lastName: String, role: Role) throws {
+    init(email: String, password: String?, firstName: String, lastName: String, calorieTarget: Int?, role: Role) throws {
         guard email.isEmail else {
             throw Abort(.badRequest, reason: "You must provide a valid email address", identifier: ErrorIdentifiers.Validation.User.invalidEmail)
         }
@@ -43,6 +44,7 @@ final class User: Model, Timestampable, ResponseRepresentable {
         self.lastName = lastName
         self.role = role
         self.hashedPassword = hashedPassword
+        self.calorieTarget = calorieTarget
     }
     
     init(row: Row) throws {
@@ -55,6 +57,7 @@ final class User: Model, Timestampable, ResponseRepresentable {
         hashedPassword = try row.get("password_hash")
         firstName = try row.get("first_name")
         lastName = try row.get("last_name")
+        calorieTarget = try row.get("calorie_target")
         self.role = role
     }
     
@@ -65,6 +68,7 @@ final class User: Model, Timestampable, ResponseRepresentable {
         try row.set("first_name", firstName)
         try row.set("last_name", lastName)
         try row.set("role", role.rawValue)
+        try row.set("calorie_target", calorieTarget)
         
         if let hashedPassword = hashedPassword {
             try row.set("password_hash", hashedPassword)
@@ -84,6 +88,7 @@ extension User: JSONConvertible {
                       password: json.get("password"),
                       firstName: json.get("firstName"),
                       lastName: json.get("lastName"),
+                      calorieTarget: json.get("calorieTarget"),
                       role: role)
     }
     
@@ -94,6 +99,7 @@ extension User: JSONConvertible {
         try userJson.set("firstName", firstName)
         try userJson.set("lastName", lastName)
         try userJson.set("role", role.rawValue)
+        try userJson.set("calorieTarget", calorieTarget)
         
         return userJson
     }
